@@ -1,0 +1,55 @@
+const pkgList = [
+  "css-size",
+  "cssnano",
+  "cssnano-preset-advanced",
+  "cssnano-preset-default",
+  "cssnano-util-get-arguments",
+  "cssnano-util-get-match",
+  "cssnano-util-same-parent",
+  "cssnano-utils",
+  "postcss-colormin",
+  "postcss-convert-values",
+  "postcss-discard-comments",
+  "postcss-discard-duplicates",
+  "postcss-discard-empty",
+  "postcss-discard-overridden",
+  "postcss-discard-unused",
+  "postcss-merge-idents",
+  "postcss-merge-longhand",
+  "postcss-merge-rules",
+  "postcss-minify-font-values",
+  "postcss-minify-gradients",
+  "postcss-minify-params",
+  "postcss-minify-selectors",
+  "postcss-normalize-charset",
+  "postcss-normalize-display-values",
+  "postcss-normalize-positions",
+  "postcss-normalize-repeat-style",
+  "postcss-normalize-string",
+  "postcss-normalize-timing-functions",
+  "postcss-normalize-unicode",
+  "postcss-normalize-url",
+  "postcss-normalize-whitespace",
+  "postcss-ordered-values",
+  "postcss-reduce-idents",
+  "postcss-reduce-initial",
+  "postcss-reduce-transforms",
+  "postcss-svgo",
+  "postcss-unique-selectors",
+  "postcss-zindex",
+  "stylehacks",
+  "cssnano-util-raw-cache"
+];
+
+const notRequiredPkgList = [
+  "example-cli-usage",
+  "cssnano-util-get-arguments",
+  "cssnano-util-get-match",
+  "cssnano-util-raw-cache",
+  "cssnano-util-same-parent",
+  "css-size",
+  // TODO: remove this later
+  "cssnano-utils"
+];
+
+module.exports = { pkgList, notRequiredPkgList };

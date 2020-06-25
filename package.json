@@ -1,0 +1,18 @@
+{
+  "name": "cssnano-nightly",
+  "private": "true",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/anikethsaha/cssnano-nightly.git",
+  "author": "Anix <anik220798@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "edit-json-file": "^1.4.0",
+    "jscodeshift": "^0.10.0",
+    "shelljs": "^0.8.4",
+    "simple-git": "^2.10.0"
+  },
+  "dependencies": {
+    "tmp": "^0.2.1"
+  }
+}
