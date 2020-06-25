@@ -9,6 +9,7 @@
  * 1. ✔️ change all package name to suffix with `-nightly`
  * 2. ✔️ change the dep of presets and cssnano
  * 3. ✔️ change the `babel.config.js` alias mapping with the new name i.e `*-nightly`
+ * 4.     change the content of readme
  */
 
 const simpleGit = require("simple-git/promise");
@@ -57,11 +58,37 @@ async function run() {
     }
 
     const packagePath = cssnanoPath + "/packages/" + package;
+
     if (!fs.existsSync(packagePath)) {
       process.stderr.write(
         "Cant locate path for " + packagePath + "Please re check. Exiting..."
       );
       process.exit(1);
+    }
+
+    try {
+      const data = fs.readFileSync(packagePath + "/README.md", "utf8");
+      const newData = `
+### This is an un-official nightly release of cssnano's ${package} 
+
+In this, the package is named as ${package}-nightly
+
+In from this docs, you need to replace every 
+
+${package} --> ${package}-nightly
+
+
+
+***
+Original Docs below
+***
+
+${data}
+`;
+
+      const writeStatus = fs.writeFileSync(packagePath + "/README.md", newData);
+    } catch (error) {
+      throw new Error(error);
     }
 
     let packageJson = editJsonFile(`${packagePath}/package.json`);
