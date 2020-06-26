@@ -25,6 +25,8 @@ const { semver } = require("./utils");
 const cssnanoRepoLink = "https://github.com/cssnano/cssnano.git";
 const packagesNotToPublish = new Set(pkgLists.notRequiredPkgList);
 
+shell.config.fatal = true;
+
 async function run() {
   // TODO(1) : change `__dirname` to `path`
   const gitClonedPath = __dirname;
@@ -115,7 +117,7 @@ ${data}
         ...newdepList[package]
       });
     }
-
+    shell.cp("-R", __dirname + "/.npmrc", packagePath);
     packageJson.save();
   });
 
