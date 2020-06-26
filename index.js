@@ -104,9 +104,10 @@ ${data}
       "https://github.com/anikethsaha/cssnano-nightly"
     );
     packageJson.set(
-      "bug:",
+      "bug",
       "https://github.com/anikethsaha/cssnano-nightly/issues"
     );
+    packageJson.set("scripts.prepublish", "");
     packageJson.set("repository", "anikethsaha/cssnano-nightly");
 
     if (newdepList[package]) {
@@ -151,17 +152,14 @@ ${data}
   }
   console.log("✔️   > Done Linking  dep");
 
-  console.log("📝   > Committing");
-  if (
-    shell.exec(
-      `git commit -am "publish: v${semver.major}.${semver.minor}.${semver.patch}"`
-    ).code === 1
-  ) {
-    process.stderr.write("Something wrong while committing");
-    process.exit(1);
-  }
-
-  console.log("✔️   > Done  committing");
+  packages.forEach(package => {
+    if (packagesNotToPublish.has(package)) {
+      return;
+    }
+    const packagePath = cssnanoPath + "/packages/" + package;
+    shell.cd(packagePath);
+    shell.exec("npm publish");
+  });
 }
 
 run();
