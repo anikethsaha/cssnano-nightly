@@ -32,6 +32,6 @@ jobs:
             git config user.name "Aniketh Saha"
             git push https://anikethsaha:$REMOTE_GITHUB_AUTH_TOKEN@github.com/anikethsaha/cssnano-nightly.git HEAD:master
         env:
-          GITHUB_TOKEN: ${{ secrets.REMOTE_GITHUB_AUTH_TOKEN
+          GITHUB_TOKEN: ${{ secrets.REMOTE_GITHUB_AUTH_TOKEN }}
  }}
 
