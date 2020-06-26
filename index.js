@@ -10,20 +10,20 @@
  * 2. ✔️ change the dep of presets and cssnano
  * 3. ✔️ change the `babel.config.js` alias mapping with the new name i.e `*-nightly`
  * 4. ✔️ change the content of readme
+ *
  */
 
 const simpleGit = require("simple-git/promise");
 const tmp = require("tmp");
 const fs = require("fs");
 const shell = require("shelljs");
+const rimraf = require("rimraf");
 const editJsonFile = require("edit-json-file");
 const newdepList = require("./dependenciesList");
 const pkgLists = require("./packageList");
 const { semver } = require("./utils");
 const cssnanoRepoLink = "https://github.com/cssnano/cssnano.git";
 const packagesNotToPublish = new Set(pkgLists.notRequiredPkgList);
-
-
 
 async function run() {
   // TODO(1) : change `__dirname` to `path`
@@ -54,11 +54,11 @@ async function run() {
     "📝   > Starting changing Package name and dep of respective `package.json`"
   );
   packages.forEach(async (package, i) => {
+    const packagePath = cssnanoPath + "/packages/" + package;
     if (packagesNotToPublish.has(package)) {
+      rimraf.sync(packagePath);
       return;
     }
-
-    const packagePath = cssnanoPath + "/packages/" + package;
 
     if (!fs.existsSync(packagePath)) {
       process.stderr.write(
@@ -151,13 +151,17 @@ ${data}
   }
   console.log("✔️   > Done Linking  dep");
 
-  //   console.log("📝   > testing  packages");
-  //   if (shell.exec("npm run test:only").code === 1) {
-  //     process.stderr.write("Something wrong while testing packages");
-  //     process.exit(1);
-  //   }
+  console.log("📝   > Committing");
+  if (
+    shell.exec(
+      `git commit -am "publish: v${semver.major}.${semver.minor}.${semver.patch}"`
+    ).code === 1
+  ) {
+    process.stderr.write("Something wrong while committing");
+    process.exit(1);
+  }
 
-  //   console.log("✔️   > Done  testing packages");
+  console.log("✔️   > Done  committing");
 }
 
 run();
