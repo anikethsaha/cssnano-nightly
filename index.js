@@ -19,17 +19,11 @@ const shell = require("shelljs");
 const editJsonFile = require("edit-json-file");
 const newdepList = require("./dependenciesList");
 const pkgLists = require("./packageList");
-
+const { semver } = require("./utils");
 const cssnanoRepoLink = "https://github.com/cssnano/cssnano.git";
 const packagesNotToPublish = new Set(pkgLists.notRequiredPkgList);
 
-const date = new Date();
 
-const semver = {
-  major: date.getUTCFullYear() - 2020,
-  minor: date.getUTCMonth() + 1,
-  patch: date.getUTCDate()
-};
 
 async function run() {
   // TODO(1) : change `__dirname` to `path`
@@ -47,7 +41,6 @@ async function run() {
   console.log("✔️   > CLONING COMPLETE\n");
   await shell.cd("cssnano");
   if (![15, 16].includes(shell.ls().length)) {
-    console.log(shell.ls().length);
     process.stderr.write(
       "Something wrong with the project root folder's count. Please re-check",
       "got " + shell.ls().length + "projects instead of 15"
@@ -107,14 +100,14 @@ ${data}
     );
     packageJson.set("author", "Anix <anik220798@gmail.com>");
     packageJson.set(
-      "homepage:",
+      "homepage",
       "https://github.com/anikethsaha/cssnano-nightly"
     );
     packageJson.set(
       "bug:",
       "https://github.com/anikethsaha/cssnano-nightly/issues"
     );
-    packageJson.set("repository::", "anikethsaha/cssnano-nightly");
+    packageJson.set("repository", "anikethsaha/cssnano-nightly");
 
     if (newdepList[package]) {
       packageJson.set("dependencies", {
