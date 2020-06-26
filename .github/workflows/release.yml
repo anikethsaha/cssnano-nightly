@@ -24,3 +24,5 @@ jobs:
           REGISTRY_URL: registry.npmjs.org
       - name: Run
         run: node index.js
+      - name: Update
+        run: node update.js

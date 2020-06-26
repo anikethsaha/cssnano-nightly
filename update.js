@@ -13,10 +13,33 @@
  */
 
 const simpleGit = require("simple-git/promise");
+const fetch = require("node-fetch");
 const shell = require("shelljs");
+const fs = require("fs");
+const { semver } = require("./utils");
 
 const git = simpleGit(__dirname);
+const readmeLink =
+  "https://raw.githubusercontent.com/anikethsaha/cssnano-nightly/master/versions.md";
 
-const packages = shell.ls(__dirname + "/cssnano/packages/");
+fetch(readmeLink)
+  .then(res => res.text())
+  .then(res => {
+    const oldData = res
+      .split("\n")
+      .slice(0, -1)
+      .join("\n");
 
-packages.forEach();
+    const newReadme = `${oldData}
+
+- \`v${semver.major}.${semver.minor}.${semver.patch}\`
+
+`;
+
+    fs.writeFileSync(__dirname + "/versions.md", newReadme);
+
+    shell.exec("git add .");
+    shell.exec(
+      `git commit -m "publish: v${semver.major}.${semver.minor}.${semver.patch} "`
+    );
+  });
