@@ -39,6 +39,8 @@ fetch(readmeLink)
     fs.writeFileSync(__dirname + "/versions.md", newReadme);
 
     shell.exec("git add .");
+    shell.exec(`git config --global user.email "anik220798@gmail.com"`);
+    shell.exec(`git config --global user.name "aniketh saha"`);
     shell.exec(
       `git commit -m "publish: v${semver.major}.${semver.minor}.${semver.patch} "`
     );
