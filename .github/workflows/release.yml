@@ -26,3 +26,9 @@ jobs:
         run: node index.js
       - name: Update
         run: node update.js
+      - name: Push
+        run: |
+            git config user.email "anik220798@gmail.com"
+            git config user.name "Aniketh Saha"
+            git push https://anikethsaha:$GITHUB_TOKEN@github.com/anikethsaha/cssnano-nightly.git HEAD:master
+
