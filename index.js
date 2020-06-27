@@ -22,6 +22,8 @@ const editJsonFile = require("edit-json-file");
 const newdepList = require("./dependenciesList");
 const pkgLists = require("./packageList");
 const { semver } = require("./utils");
+const isNewChange = require("./isNewChange");
+
 const cssnanoRepoLink = "https://github.com/cssnano/cssnano.git";
 const packagesNotToPublish = new Set(pkgLists.notRequiredPkgList);
 
@@ -164,4 +166,10 @@ ${data}
   });
 }
 
-run();
+if (isNewChange()) {
+  run();
+} else {
+  process.stdout.write(
+    `There is no new change in the cssnano repo since the last publish from our repo`
+  );
+}

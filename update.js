@@ -11,31 +11,42 @@ const fetch = require("node-fetch");
 const shell = require("shelljs");
 const fs = require("fs");
 const { semver } = require("./utils");
+const isNewChange = require("./isNewChange");
 
 const git = simpleGit(__dirname);
 const readmeLink =
   "https://raw.githubusercontent.com/anikethsaha/cssnano-nightly/master/versions.md";
 
-fetch(readmeLink)
-  .then(res => res.text())
-  .then(res => {
-    const oldData = res
-      .split("\n")
-      .slice(0, -1)
-      .join("\n");
+function update() {
+  fetch(readmeLink)
+    .then(res => res.text())
+    .then(res => {
+      const oldData = res
+        .split("\n")
+        .slice(0, -1)
+        .join("\n");
 
-    const newReadme = `${oldData}
+      const newReadme = `${oldData}
 
 - \`v${semver.major}.${semver.minor}.${semver.patch}\`
 
 `;
 
-    fs.writeFileSync(__dirname + "/versions.md", newReadme);
+      fs.writeFileSync(__dirname + "/versions.md", newReadme);
 
-    shell.exec("git add .");
-    shell.exec(`git config --global user.email "anik220798@gmail.com"`);
-    shell.exec(`git config --global user.name "aniketh saha"`);
-    shell.exec(
-      `git commit -m "publish: v${semver.major}.${semver.minor}.${semver.patch} "`
-    );
-  });
+      shell.exec("git add .");
+      shell.exec(`git config --global user.email "anik220798@gmail.com"`);
+      shell.exec(`git config --global user.name "aniketh saha"`);
+      shell.exec(
+        `git commit -m "publish: v${semver.major}.${semver.minor}.${semver.patch} "`
+      );
+    });
+}
+
+if (isNewChange()) {
+  update();
+} else {
+  process.stdout.write(
+    `There is no new change in the cssnano repo since the last publish from our repo`
+  );
+}
