@@ -25,9 +25,6 @@ function isNewChange() {
                 .then(_ => _.json())
                 .then(cres => {
                   const { message, committer } = cres;
-                  if (!/^publish/.test(message)) {
-                    return false;
-                  }
 
                   const lastNightlyPubCommit = new Date(committer.date);
 
