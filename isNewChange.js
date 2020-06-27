@@ -31,9 +31,9 @@ function isNewChange() {
 
                   const lastNightlyPubCommit = new Date(committer.date);
 
-                  console.log(
+                  return (
                     cssnanoLastCommitDate.getTime() >
-                      lastNightlyPubCommit.getTime()
+                    lastNightlyPubCommit.getTime()
                   );
                 });
             });
