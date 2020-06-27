@@ -1,9 +1,8 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - "master"
+  schedule:
+    - cron: '0 17 * * *' # run at 5:00 PM UTC
 
 jobs:
   release:
