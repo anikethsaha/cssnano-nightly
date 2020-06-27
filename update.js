@@ -21,15 +21,16 @@ function update() {
   fetch(readmeLink)
     .then(res => res.text())
     .then(res => {
+      //   console.log(res.split("\n")[0], "\n ----------\n");
       const oldData = res
         .split("\n")
-        .slice(0, -1)
+        .slice(1)
         .join("\n");
 
-      const newReadme = `${oldData}
+      const newReadme = `${res.split("\n")[0]}
 
-- \`v${semver.major}.${semver.minor}.${semver.patch}\`
-
+- \`v${semver.major}.${semver.minor}.${semver.patch + 1}\`
+${oldData}
 `;
 
       fs.writeFileSync(__dirname + "/versions.md", newReadme);
