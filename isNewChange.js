@@ -4,8 +4,6 @@ const { date } = require("./utils");
 let cssnanoLastCommitDate;
 
 function isNewChange() {
-  // FIXME: remove this `return`, as this has been done just to do force release
-  return true;
   fetch("https://api.github.com/repos/cssnano/cssnano/commits/master")
     .then(res => res.json())
     .then(res => {
