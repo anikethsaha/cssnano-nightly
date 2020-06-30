@@ -30,6 +30,10 @@ const packagesNotToPublish = new Set(pkgLists.notRequiredPkgList);
 shell.config.fatal = true;
 
 async function run() {
+  if (!fs.existsSync(__dirname + "/.npmrc")) {
+    return;
+  }
+
   // TODO(1) : change `__dirname` to `path`
   const gitClonedPath = __dirname;
   const cssnanoPath = gitClonedPath + "/cssnano";
@@ -111,7 +115,7 @@ ${data}
       "bug",
       "https://github.com/anikethsaha/cssnano-nightly/issues"
     );
-    packageJson.set("scripts.prepublish", "");
+
     packageJson.set("repository", "anikethsaha/cssnano-nightly");
 
     if (newdepList[package]) {
@@ -143,7 +147,7 @@ ${data}
   );
 
   console.log("📝   > Installing  dep");
-  if (shell.exec("yarn").code === 1) {
+  if (shell.exec("yarn install").code === 1) {
     process.stderr.write("Something wrong while installing dep");
     process.exit(1);
   }
@@ -162,7 +166,18 @@ ${data}
     }
     const packagePath = cssnanoPath + "/packages/" + package;
     shell.cd(packagePath);
-    shell.exec("npm publish");
+    console.log(
+      "is dist present in " + package + "?",
+      fs.existsSync(packagePath + "/dist")
+    );
+    if (fs.existsSync(packagePath + "/dist")) {
+        let packageJson = editJsonFile(`${packagePath}/package.json`);
+        packageJson.set("scripts.prepublish", "");
+        packageJson.set("scripts.prebuild", "");
+        packageJson.save();
+        console.log("publishig", package);
+        shell.exec("npm publish");
+    }
   });
 }
 

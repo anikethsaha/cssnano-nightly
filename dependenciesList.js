@@ -49,5 +49,11 @@ module.exports = {
     "postcss-merge-idents-nightly": version,
     "postcss-reduce-idents-nightly": version,
     "postcss-zindex-nightly": version
+  },
+  "postcss-merge-longhand": {
+    "css-color-names": "^1.0.1",
+    postcss: "^7.0.16",
+    "postcss-value-parser": "^3.3.1",
+    "stylehacks-nightly": version
   }
 };

@@ -48,7 +48,7 @@ const notRequiredPkgList = [
   "cssnano-util-raw-cache",
   "cssnano-util-same-parent",
   "css-size",
-  // TODO: remove this later
+  // TODO: remove this later, if the nightly for this is being created
   "cssnano-utils"
 ];
 
