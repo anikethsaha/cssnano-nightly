@@ -28,7 +28,7 @@ function update() {
         .join("\n");
 
       const newReadme = `${res.split("\n")[0]}
-- \`v${semver.major}.${semver.minor}.${semver.patch + 1}\`
+- \`v${semver.major}.${semver.minor}.${semver.patch}\`
 ${oldData}
 `;
 
