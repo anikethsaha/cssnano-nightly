@@ -12,8 +12,9 @@ async function isNewChange() {
       }
     }
   );
-  latestMasterCommit = await latestMasterCommit.json();
 
+  latestMasterCommit = await latestMasterCommit.json();
+  console.log({ latestMasterCommit });
   let cssnanoCommit = await fetch(
     `https://api.github.com/repos/cssnano/cssnano/git/commits/${latestMasterCommit.sha}`,
     {
