@@ -18,7 +18,11 @@ const readmeLink =
   "https://raw.githubusercontent.com/anikethsaha/cssnano-nightly/master/versions.md";
 
 function update() {
-  fetch(readmeLink)
+  fetch(readmeLink, {
+    headers: {
+      Authorization: "token " + process.env.OAUTH_TOKEN
+    }
+  })
     .then(res => res.text())
     .then(res => {
       //   console.log(res.split("\n")[0], "\n ----------\n");
@@ -43,10 +47,16 @@ ${oldData}
     });
 }
 
-if (isNewChange()) {
-  update();
-} else {
-  process.stdout.write(
-    `There is no new change in the cssnano repo since the last publish from our repo`
-  );
+async function runAsync() {
+  const shouldRun = await isNewChange();
+
+  if (shouldRun) {
+    update();
+  } else {
+    process.stdout.write(
+      `There is no new change in the cssnano repo since the last publish from our repo`
+    );
+  }
 }
+
+runAsync();

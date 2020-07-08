@@ -2,10 +2,10 @@ name: Release
 
 on:
   schedule:
-    - cron: '0 17 * * *' # run at 5:00 PM UTC
+    - cron: "0 17 * * *" # run at 5:00 PM UTC
   push:
-      branches:
-        - "master"
+    branches:
+      - "master"
 
 jobs:
   release:
@@ -26,13 +26,16 @@ jobs:
           REGISTRY_URL: registry.npmjs.org
       - name: Run
         run: node index.js
+        env:
+          OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
       - name: Update
         run: node update.js
+        env:
+          OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
       - name: Push
         run: |
-            git config user.email "anik220798@gmail.com"
-            git config user.name "Aniketh Saha"
-            git push https://anikethsaha:$GITHUB_TOKEN@github.com/anikethsaha/cssnano-nightly.git HEAD:master
+          git config user.email "anik220798@gmail.com"
+          git config user.name "Aniketh Saha"
+          git push https://anikethsaha:$GITHUB_TOKEN@github.com/anikethsaha/cssnano-nightly.git HEAD:master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

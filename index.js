@@ -171,20 +171,26 @@ ${data}
       fs.existsSync(packagePath + "/dist")
     );
     if (fs.existsSync(packagePath + "/dist")) {
-        let packageJson = editJsonFile(`${packagePath}/package.json`);
-        packageJson.set("scripts.prepublish", "");
-        packageJson.set("scripts.prebuild", "");
-        packageJson.save();
-        console.log("publishig", package);
-        shell.exec("npm publish");
+      let packageJson = editJsonFile(`${packagePath}/package.json`);
+      packageJson.set("scripts.prepublish", "");
+      packageJson.set("scripts.prebuild", "");
+      packageJson.save();
+      console.log("publishig", package);
+      shell.exec("npm publish");
     }
   });
 }
 
-if (isNewChange()) {
-  run();
-} else {
-  process.stdout.write(
-    `There is no new change in the cssnano repo since the last publish from our repo`
-  );
+async function runAsync() {
+  const shouldRun = await isNewChange();
+
+  if (shouldRun) {
+    run();
+  } else {
+    process.stdout.write(
+      `There is no new change in the cssnano repo since the last publish from our repo`
+    );
+  }
 }
+
+runAsync();

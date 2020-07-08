@@ -3,39 +3,42 @@ const { date } = require("./utils");
 
 let cssnanoLastCommitDate;
 
-function isNewChange() {
-  fetch("https://api.github.com/repos/cssnano/cssnano/commits/master")
-    .then(res => res.json())
-    .then(res => {
-      fetch(
-        `https://api.github.com/repos/cssnano/cssnano/git/commits/${res.sha}`
-      )
-        .then(r => r.json())
-        .then(commit => {
-          cssnanoLastCommitDate = new Date(commit.committer.date);
+async function isNewChange() {
+  let latestMasterCommit = await fetch(
+    "https://api.github.com/repos/cssnano/cssnano/commits/master",
+    {
+      headers: {
+        Authorization: "token " + process.env.OAUTH_TOKEN
+      }
+    }
+  );
+  latestMasterCommit = await latestMasterCommit.json();
 
-          fetch(
-            "https://api.github.com/repos/anikethsaha/cssnano-nightly/commits/master"
-          )
-            .then(_ => _.json())
-            .then(_ => {
-              fetch(
-                `https://api.github.com/repos/anikethsaha/cssnano-nightly/git/commits/${_.sha}`
-              )
-                .then(_ => _.json())
-                .then(cres => {
-                  const { message, committer } = cres;
+  let cssnanoCommit = await fetch(
+    `https://api.github.com/repos/cssnano/cssnano/git/commits/${latestMasterCommit.sha}`,
+    {
+      headers: {
+        Authorization: "token " + process.env.OAUTH_TOKEN
+      }
+    }
+  );
 
-                  const lastNightlyPubCommit = new Date(committer.date);
+  cssnanoCommit = await cssnanoCommit.json();
+  cssnanoLastCommitDate = new Date(cssnanoCommit.committer.date);
+  let nightlyCommit = await fetch(
+    "https://api.github.com/repos/anikethsaha/cssnano-nightly/commits/master",
+    {
+      headers: {
+        Authorization: "token " + process.env.OAUTH_TOKEN
+      }
+    }
+  );
 
-                  return (
-                    cssnanoLastCommitDate.getTime() >
-                    lastNightlyPubCommit.getTime()
-                  );
-                });
-            });
-        });
-    });
+  nightlyCommit = await nightlyCommit.json();
+  const { message, committer } = nightlyCommit.commit;
+  const lastNightlyPubCommit = new Date(committer.date);
+
+  return cssnanoLastCommitDate.getTime() > lastNightlyPubCommit.getTime();
 }
 
 module.exports = isNewChange;
