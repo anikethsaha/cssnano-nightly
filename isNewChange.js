@@ -15,7 +15,7 @@ async function isNewChange() {
     `https://api.github.com/repos/cssnano/cssnano/commits?branch=master&since=${yesterdayDate}&until=${todayDate}`,
     {
       headers: {
-        Authorization: "token " + githubToken
+        Authorization: "token " + process.env.OAUTH_TOKEN
       }
     }
   );
