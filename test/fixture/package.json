@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "cssnano-nightly": "^0.7.9"
+  }
+}

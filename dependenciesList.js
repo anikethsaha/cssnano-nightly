@@ -12,7 +12,7 @@ module.exports = {
   },
   "cssnano-preset-default": {
     "css-declaration-sorter": "^5.1.2",
-    "cssnano-utils": "^1.0.0",
+    "cssnano-utils-nightly": version,
     postcss: "^7.0.16",
     "postcss-calc": "^7.0.1",
     "postcss-colormin-nightly": version,

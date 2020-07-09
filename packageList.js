@@ -47,9 +47,7 @@ const notRequiredPkgList = [
   "cssnano-util-get-match",
   "cssnano-util-raw-cache",
   "cssnano-util-same-parent",
-  "css-size",
-  // TODO: remove this later, if the nightly for this is being created
-  "cssnano-utils"
+  "css-size"
 ];
 
 module.exports = { pkgList, notRequiredPkgList };
