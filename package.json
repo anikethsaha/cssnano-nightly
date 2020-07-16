@@ -23,8 +23,7 @@
   },
   "scripts": {
     "test": "jest ./test",
-    "build": "node .",
-    "prebuild": "npm run test"
+    "build": "node ."
   },
   "dependencies": {}
 }
