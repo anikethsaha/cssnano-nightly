@@ -24,14 +24,19 @@ jobs:
         env:
           REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
           REGISTRY_URL: registry.npmjs.org
+          OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
       - name: Run
         run: npm run build
         env:
           OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
+          REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+          REGISTRY_URL: registry.npmjs.org
       - name: Update
         run: node update.js
         env:
           OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
+          REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+          REGISTRY_URL: registry.npmjs.org
       - name: Push
         run: |
           git config user.email "anik220798@gmail.com"
@@ -39,3 +44,5 @@ jobs:
           git push https://anikethsaha:$GITHUB_TOKEN@github.com/anikethsaha/cssnano-nightly.git HEAD:master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+          REGISTRY_URL: registry.npmjs.org
