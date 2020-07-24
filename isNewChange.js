@@ -21,7 +21,9 @@ async function isNewChange() {
   );
   dm = await dm.json();
   console.log({ dm });
-  return Array.isArray(dm) && dm.length > 0;
+  //   TEMP : remove this return `true`
+  return true;
+  //   return Array.isArray(dm) && dm.length > 0;
 }
 
 module.exports = isNewChange;
