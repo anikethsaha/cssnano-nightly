@@ -20,10 +20,7 @@ async function isNewChange() {
     }
   );
   dm = await dm.json();
-  console.log({ dm });
-  //   TEMP : remove this return `true`
-  return true;
-  //   return Array.isArray(dm) && dm.length > 0;
+  return Array.isArray(dm) && dm.length > 0;
 }
 
 module.exports = isNewChange;
