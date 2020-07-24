@@ -177,7 +177,6 @@ ${data}
       let packageJson = editJsonFile(`${packagePath}/package.json`);
       packageJson.set("scripts.prepublish", "");
       packageJson.set("scripts.prebuild", "");
-      packageJson.set("publishConfig.registry", registryUrl);
       packageJson.save();
       console.log("publishing ", pkg);
       shell.exec("npm publish");
