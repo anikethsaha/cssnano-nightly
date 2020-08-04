@@ -50,6 +50,13 @@ module.exports = {
     "postcss-reduce-idents-nightly": version,
     "postcss-zindex-nightly": version
   },
+  "cssnano-preset-lite": {
+    "cssnano-utils-nightly": version,
+    postcss: "^7.0.16",
+    "postcss-discard-comments-nightly": "version",
+    "postcss-normalize-whitespace-nightly": "version",
+    "postcss-discard-empty-nightly": "version"
+  },
   "postcss-merge-longhand": {
     "css-color-names": "^1.0.1",
     postcss: "^7.0.16",
