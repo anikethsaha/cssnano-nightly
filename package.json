@@ -12,7 +12,7 @@
     "jscodeshift": "^0.10.0",
     "node-fetch": "^2.6.0",
     "rimraf": "^3.0.2",
-    "shelljs": "^0.8.4",
+    "shelljs": "^0.8.5",
     "simple-git": "^2.10.0",
     "jest": "^26.1.0",
     "postcss-cli": "^7.1.1",
